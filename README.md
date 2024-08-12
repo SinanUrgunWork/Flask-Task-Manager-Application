@@ -118,6 +118,44 @@ The project follows a modular and scalable design, which makes it easy to extend
 
 - **Utilities**: Utility functions and decorators, such as `admin_required`, are placed in the `utils.py` file. This keeps the routes and views clean and focused on their primary responsibilities.
 
+### Database Structure
+
+This project uses **SQLite** as its primary database during development. The database interactions are managed using **SQLAlchemy**, which is an Object-Relational Mapping (ORM) tool that allows for a more intuitive and Pythonic way to work with databases.
+
+#### ORM (Object-Relational Mapping)
+
+**SQLAlchemy** is used as the ORM to interact with the database. It allows you to define models as Python classes, which are then mapped to database tables. This abstraction layer helps in writing cleaner and more maintainable code without the need to write raw SQL queries.
+
+#### Models
+
+The following models are defined in the project:
+
+- **User**: Represents the users of the application. This model includes fields for storing the username, password (hashed), and admin status.
+  
+- **Task**: Represents tasks created by users. It includes fields for the task title, description, status, and the user to whom the task belongs.
+  
+- **Permission**: Represents the permissions associated with tasks. It tracks which users can view or edit tasks shared with them.
+
+#### Relationships
+
+- **One-to-Many Relationship**: 
+  - **User** ↔ **Task**: A single user can own multiple tasks. This relationship is established using a foreign key in the `Task` model that references the `User` model.
+  
+- **Many-to-Many Relationship**: 
+  - **User** ↔ **Task** (via **Permission**): Tasks can be shared with multiple users, and users can have permissions on multiple tasks. This is managed through the `Permission` model, which acts as an associative table between `User` and `Task`.
+
+#### Migrations
+
+Database migrations are managed using **Flask-Migrate**, which is an extension that handles SQLAlchemy database migrations for Flask applications. It provides a way to incrementally apply changes to the database schema, making it easy to update the database structure without losing data.
+
+To create and apply migrations, use the following commands:
+
+      flask db init      # Initialize the migrations directory
+      flask db migrate   # Generate a new migration script
+      flask db upgrade   # Apply the migration to the database
+This setup ensures that the database schema is consistent across different environments and allows for smooth schema evolution as the project grows.
+
+
 ## API Endpoints
 
 The application provides the following key API endpoints:
