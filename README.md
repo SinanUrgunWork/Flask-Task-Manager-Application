@@ -145,16 +145,11 @@ The following models are defined in the project:
   - **User** ↔ **Task** (via **Permission**): Tasks can be shared with multiple users, and users can have permissions on multiple tasks. This is managed through the `Permission` model, which acts as an associative table between `User` and `Task`.
 
 #### Migrations
-
-Database migrations are managed using **Flask-Migrate**, which is an extension that handles SQLAlchemy database migrations for Flask applications. It provides a way to incrementally apply changes to the database schema, making it easy to update the database structure without losing data.
-
 To create and apply migrations, use the following commands:
 
       flask db init      # Initialize the migrations directory
       flask db migrate   # Generate a new migration script
       flask db upgrade   # Apply the migration to the database
-This setup ensures that the database schema is consistent across different environments and allows for smooth schema evolution as the project grows.
-
 
 ## API Endpoints
 
