@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+Welcome
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Welcome to the Task Manager!</h1>
+    <p>Manage your tasks efficiently and effectively.</p>
+    <div>
+        <a href="{{ url_for('main.login') }}" class="btn btn-primary">Login</a>
+        <a href="{{ url_for('main.register') }}" class="btn btn-success">Register</a>
+    </div>
+</div>
+{% endblock %}

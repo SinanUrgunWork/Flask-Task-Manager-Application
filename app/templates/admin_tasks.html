@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h2>Manage All Tasks</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for task in tasks %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.owner.username }}</td>
+            <td>{{ task.status.value }}</td>
+            <td>
+                <a href="{{ url_for('main.admin_edit_task', task_id=task.id) }}" class="btn btn-sm btn-primary">Edit</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

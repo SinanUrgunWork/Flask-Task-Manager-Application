@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2>Your Tasks</h2>
+    <!-- Link to create a new task -->
+    <a href="{{ url_for('main.edit_task') }}" class="btn btn-success mb-3">Add New Task</a>
+    <ul class="list-group">
+        {% for task in tasks %}
+        <li class="list-group-item">
+            <!-- Display the task title -->
+            <h5>{{ task.title }}</h5>
+            <!-- Display the task description -->
+            <p>{{ task.description }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    {% set can_view_status = False %}
+                    {% if task.user_id == current_user.id %}
+                    {% set can_view_status = True %}
+                    {% else %}
+                    <!-- Check permissions for the current user -->
+                    {% for permission in task.permissions %}
+                    {% if permission.user_id == current_user.id and permission.can_view_status %}
+                    {% set can_view_status = True %}
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+                    <!-- Only display the status if the user is not the task owner -->
+                    {% if task.user_id != current_user.id %}
+                    {% if task.status.value == 'Not Started' %}
+                    <p class="fst-italic text-danger">Status: {{ task.status.value }}</p>
+                    {% elif task.status.value == 'In Progress' %}
+                    <p class="fst-italic text-warning">Status: {{ task.status.value }}</p>
+                    {% elif task.status.value == 'Completed' %}
+                    <p class="fst-italic text-success">Status: {{ task.status.value }}</p>
+                    {% endif %}
+                    {% endif %}
+
+                    <!-- Form to update task status, visible only to the task owner -->
+                    {% if task.user_id == current_user.id %}
+                    <form action="{{ url_for('main.update_task_status', task_id=task.id) }}" method="post"
+                        class="d-inline ml-2">
+                        <select name="status" onchange="this.form.submit()">
+                            {% for status in TaskStatus %}
+                            <option value="{{ status.name }}" {% if status==task.status %}selected{% endif %}>
+                                {{ status.value }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                    {% endif %}
+                </div>
+                <div>
+                    <!-- Buttons to edit or delete the task, visible only to the task owner -->
+                    {% if task.user_id == current_user.id %}
+                    <a href="{{ url_for('main.edit_task', task_id=task.id) }}" class="btn btn-sm btn-info">Edit</a>
+                    <form action="{{ url_for('main.delete_task', task_id=task.id) }}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger"
+                            onclick="return confirm('Are you sure?');">Delete</button>
+                    </form>
+                    {% endif %}
+                </div>
+                <!-- Display the task owner -->
+                <small class="text-muted">Owner: {{ task.owner.username }}</small>
+                <!-- Form to share the task with another user, visible only to the task owner -->
+                {% if task.user_id == current_user.id %}
+                <form action="{{ url_for('main.share_task', task_id=task.id) }}" method="post" class="d-inline">
+                    <input type="text" name="username" placeholder="Username to share with" required>
+                    <button type="submit" class="btn btn-sm btn-primary">Share</button>
+                </form>
+                {% endif %}
+            </div>
+        </li>
+        {% else %}
+        <!-- Message to display if no tasks are found -->
+        <li class="list-group-item">No tasks found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

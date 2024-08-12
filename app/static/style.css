@@ -1,0 +1,14 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.form-control, .btn {
+    margin-top: 5px;
+}
