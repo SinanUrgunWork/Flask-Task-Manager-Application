@@ -121,11 +121,6 @@ dmypy.json
 *.db
 *.sqlite3
 
-# Docker
-*.env
-Dockerfile
-docker-compose.yml
-
 # VS Code settings
 .vscode/
 
