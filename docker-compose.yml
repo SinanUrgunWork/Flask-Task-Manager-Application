@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - ./myflaskapp.db:/app/myflaskapp.db
+    env_file:
+      - .env
+    command: flask run --host=0.0.0.0
+
+  test:
+    build: .
+    volumes:
+      - .:/app
+      - ./myflaskapp.db:/app/myflaskapp.db
+    env_file:
+      - .env
+    command: pytest --disable-warnings --maxfail=1
