@@ -150,6 +150,21 @@ To create and apply migrations, use the following commands:
       flask db init      # Initialize the migrations directory
       flask db migrate   # Generate a new migration script
       flask db upgrade   # Apply the migration to the database
+### Adding an Admin User Named "sinan"
+
+Adding an admin user named "sinan" is crucial for first access to the admin panel. The username must be "sinan." Follow these steps to manually add this admin user:
+
+1. **Open Flask Shell**
+
+   Start the Flask shell by running the following command in your terminal:
+
+   ```bash
+   flask shell
+   from app import db
+   from app.models import User
+   admin_user = User(username='sinan', password='your_secure_password', is_admin=True)
+   db.session.add(admin_user)
+   db.session.commit()
 
 ## API Endpoints
 
