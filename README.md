@@ -154,8 +154,6 @@ To create and apply migrations, use the following commands:
 
 Adding an admin user named "sinan" is crucial for first access to the admin panel. The username must be "sinan." Follow these steps to manually add this admin user:
 
-1. **Open Flask Shell**
-
    Start the Flask shell by running the following command in your terminal:
 
    ```bash
