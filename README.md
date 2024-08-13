@@ -66,7 +66,7 @@ Create a .env file in the root directory with the following content:
    SECRET_KEY=your_secret_key
    SQLALCHEMY_DATABASE_URI=sqlite:///myflaskapp.db
    FLASK_APP=app
-3.1 **Generating a SECRET_KEY**
+ **Generating a SECRET_KEY**  
 To create a secure `SECRET_KEY` for your Flask application, you can use the following Python script:
    ```bash
    import secrets
