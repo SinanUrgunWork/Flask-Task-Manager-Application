@@ -114,7 +114,7 @@ To run the test suite, use the following command (at the root):
 
 ## Architectural Design
 
-The project follows a modular and scalable design, which makes it easy to extend and maintain. The key components include:
+The project follows a modular and scalable design, which makes it easy to extend and maintain(MVC, Blueprints for Modular Design, and RESTful Routing). The key components include:
 
 - **Flask Blueprints**: The application is divided into blueprints, separating different concerns like authentication, task management, and admin functionalities. This separation allows for easier management and scaling of the application.
 
